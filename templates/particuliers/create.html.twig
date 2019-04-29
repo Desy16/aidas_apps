@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{# {% form_theme formParticulier 'bootstrap_4_layout.html.twig' %} #}
+
+{% block body %}
+    .<div class="jumbotron text-center">
+        <h1>Pour des particuliers</h1>
+        
+    </div>
+    
+
+    {{ form_start(formParticulier)}}
+ 
+        <div class="form-div">
+            <!--<label for="">Votre qualification :</label>
+            <input type="text" name="qualif" value="">-->
+            Quelle est votre qualification ? Vous êtes bien un {{ qualif }} :-)
+        </div>
+
+        <div class="form-div">
+            <label for="">Votre sinistre :</label>
+            {{ form_widget(formParticulier.sinistre) }}
+        </div>
+        
+         
+         <button type="submit" class="btn btn-success">Suivant</button>
+
+    {{ form_end(formParticulier)}}
+
+{% endblock %}

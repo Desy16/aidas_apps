@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+		<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+			<!--==================================================
+							HEADER	
+			==================================================-->
+         <header>
+			{# {% include 'particuliers/head' %} #}
+			<div class="row">
+				<a href="{{ path('accueil') }}">
+					<img src="../images/logo.jpg" alt="logo aidasinistre" class="logo"/>
+				</a>
+			</div>
+
+			<nav class="menu">
+				<div class="row">
+					<ul class="main-nav">
+						<li><a href="{{ path('particulier_create')}}">particuliers</a></li>
+						<li><a href="professionnels">professionnels</a></li>
+						<li><a href="entreprises">entreprises</a></li>
+						<li><a href="exploitant">exploitants agricoles</a></li>
+						<li><a href="collectivite">collectivités territoriales</a></li>
+					</ul>
+				</div>
+			</nav>
+        </header>
+
+		<!--<nav class="navbar navbar-expand-lg navbar-dark bg-primary"> 
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon">butoo</span>
+			</button> 
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+
+					<li class="nav-item active">
+						<a class="nav-link" href="">Particuliers <span class="sr-only">(current)</span></a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="">Professionnels</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#">Disabled</a>
+					</li>
+				</ul>
+
+				 <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Dropdown
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li> 
+				
+				 <form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>-->
+        
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
+
+		<!--==================================================
+							FOOTER
+			==================================================-->
+        <footer>
+			    <div class="row">
+					<div class="col span_1_of_1">
+						<h3>Qui sommes-nous</h3>
+							<ul class="footer-nav-som">
+								<li><a href="#">Nos missions et nos valeurs</a></li>
+								<!--<li><a href="#">Nos conditions générales d'utilisation</a></li>
+								<li><a href="#">Mentions légales</a></li>-->
+							</ul>
+					</div>
+
+					<div class="col span_1_of_1">
+						<h3>Données personnelles</h3>
+							<ul class="footer-nav-per">
+								<li><a href="rgpd">RGPD et vie privée</a></li>
+								<li><a href="#">AIDASINISTRE nos obligations</a></li>
+								<li><a href="#">Base numérique des consentements</a></li>
+								<li><a href="#">Utilisateurs de notre site et de notre application mobile vos droits</a></li>
+							</ul>
+					</div>
+
+					<div class="col span_1_of_1">
+						<h3>A propos</h3>
+							<ul class="footer-nav-pro">
+								<li><a href="#">Nos conditions générales de vente</a></li>
+								<li><a href="#">Nos conditions générales d'utilisation</a></li>
+								<li><a href="#">Mentions légales</a></li>
+							</ul>
+					</div>
+			    </div>
+
+			<div class="row">
+				<!--<div class="col span_1_of_1">
+					<ul class="footer-nav-con">
+						<li><a href="#">Nos conditions générales de vente</a></li>
+						<li><a href="#">Nos conditions générales d'utilisation</a></li>
+						<li><a href="#">Mentions légales</a></li>
+					</ul>
+				</div>-->
+
+				<p class="text-copyright">
+					Copyright&copy;2019 par Aidasinistre. Tous droits réservés.
+				</p>
+			</div>
+
+		</footer>
+		<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
