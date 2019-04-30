@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\Association;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Form\AssociationType;
+use App\Entity\AssociationSearch;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * @method Association|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,13 +23,41 @@ class AssociationRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllVisible() {
+    /**
+     * Permet de récuperer tout ce qui est visible
+    * @return Query
+    */
+    public function findAllVisibleQuery(AssociationSearch $search)
+    {
         
-        return $this->createQueryBuilder('a')
+        $query = $this->findVisibleQuery();
+
+        $query = $query
+            ->where('a.commune == :maxcommune')
+            ->setParameter(':maxcommune', $search->getCommune());
+            
+        return $query->getQuery();
+    }
+
+    /**
+     * Permet de récuperer les deux derniers résultats
+    * @return Association[]
+    */
+    public function findLatest(): array
+    {
+        # code...
+        return $this->findVisibleQuery()
                     ->getQuery()
-                    ->setMaxResults(1)
+                    ->setMaxResults(4)
                     ->getResult()
                 ;
+
+    }
+
+    private function findVisibleQuery()
+    {
+        # code...
+        return $this->createQueryBuilder('a');
     }
 
     // /**

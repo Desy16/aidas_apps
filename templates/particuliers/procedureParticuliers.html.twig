@@ -1,22 +1,24 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} {{ title }} {% endblock %}
+
 {% block body %}
-
-    <h1>Procedure des particuliers</h1>
-
-    <h2>un texte explicatif</h2>
+	
+	<div class="jumbotron">
+		<h1>Procedure des particuliers</h1>
+		
+		<h2>un texte explicatif</h2>
 			<p>
 				<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id debitis, modi consequuntur dolorum eius fugiat, facere, temporibus pariatur laudantium minima explicabo. Error, beatae eaque laudantium sit? Quibusdam possimus eligendi magni.</span>
 				<span>Quisquam voluptas vitae, odit dolor provident deleniti vero, magni, repellat voluptatibus rerum nisi nemo nostrum esse! Illo beatae recusandae asperiores neque, quod aliquid odio doloribus quia, id, modi eius. Molestiae!</span>
 				<span>Alias aspernatur, ea atque. Expedita iste aut similique assumenda, quaerat obcaecati asperiores illo ad rem ducimus voluptatum saepe officiis eius temporibus, provident unde! Officiis ducimus, quae reiciendis esse facilis dignissimos!</span>
 				<span>Consequuntur cum illo sapiente nam, quis commodi, voluptas ipsum culpa distinctio, aliquid, eos atque nihil dolores! Numquam, error. Consequuntur nobis aliquid facilis debitis explicabo veritatis molestiae eius ullam, fugiat ipsa.</span>
 				<span>Minus enim placeat ipsam obcaecati porro architecto suscipit dolorum culpa, ullam error, nihil cupiditate, rem facere harum. Optio explicabo asperiores unde cupiditate aliquam aperiam nihil, non, tempora, adipisci odio deleniti.</span>
-				<span>Accusantium consequatur, doloremque tempore officia voluptas sint animi quae, enim ipsa vero nemo, sunt voluptates! Nemo provident, sequi vel magni beatae excepturi asperiores eos repellat corporis iure cupiditate quaerat iusto!</span>
-				<span>Aperiam dolorem vel voluptatem et ab tempore molestias quod molestiae consequuntur saepe voluptatum eligendi nostrum, illum qui ad esse tempora a, minus unde dolor harum explicabo adipisci. Magni, nesciunt quos!</span>
-				<span>Officia voluptatibus atque unde quos, voluptates magnam iste ad quod eveniet animi itaque ipsum ipsa aliquid in numquam eaque maxime id aliquam nam! Aliquam vitae libero, corporis debitis esse reiciendis.</span>
 			</p>
+	</div>
 
-			<div class="form-div">
+    
+			<!--<div class="form-div">
 				<div class="row">
 					<div class="lieu-form">
 						<div class="col span_1_of_1">
@@ -27,20 +29,42 @@
 							<input type="search" name="lieu" id="lieu" placeholder="Ex : Ville" required/>
 						</div>
 
-						<!--<div class="col span_1_of_1">
-							<input type="submit" value="Bouton association" class="btn btn-asso"/>
+						<div class="col span_1_of_1">
+							<input type="submit" value="Rechercher" class="btn btn-asso"/>
 						</div>
 
 						<div class="col span_1_of_1">
 							<input type="submit" value="Bouton partenaire" class="btn btn-part"/>
-						</div>-->
+						</div>
 					</div>
 				</div>
-        	</div>
+        	</div>-->
 
-			{% for association in associations %}
-				{{ association.nom }}
-			{% endfor %}
+			<div class="container">
+				<h2>Les associations</h2>
+				<div class="row flex">
+					{% for association in associations %}
+						<div class="col-3">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">
+										<a href="{{ path('particuliers.show', {id: association.id, slug: association.slug}) }}">{{ association.nom }}</a>
+									</h5>
+									<p class="card-text"> {{ association.commune }} ({{ association.codePostal}}) </p>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+
+			{# {{ form_row(form.commune) }}
+
+			<button class="btn">Rechercher</button>
+ #}
+			{# <!--<div class="pagination">
+				{{ knp_pagination_render(associations) }}
+			</div>--> #}
 
             
 {% endblock %}

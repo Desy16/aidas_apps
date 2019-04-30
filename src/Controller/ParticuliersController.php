@@ -12,6 +12,10 @@ use App\Repository\AssociationRepository;
 use App\Entity\Particuliers;
 use App\Entity\Association;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\AssociationType;
+use App\Entity\AssociationSearch;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+/* use App\Controller\PaginatorInterface; */
 
 class ParticuliersController extends AbstractController
 {
@@ -23,7 +27,7 @@ class ParticuliersController extends AbstractController
 
     public function __construct(AssociationRepository $repository){
 
-        $this->repository = $repository;
+         $this->repository = $repository;
     }
 
     /**
@@ -85,28 +89,44 @@ class ParticuliersController extends AbstractController
 
         return $this->render('particuliers/create.html.twig', [
             'formParticulier' => $form->createView(),
+            'title' => "Procedure_Particulier",
+            'current_menu' => 'particuliers',
             'qualif' => "Particulier"
         ]);
     }
 
      /**
+      * @var search
      * @Route("/procedure_particuliers", name="procedure_particulier")
      * 
      */
-    public function procedureParticulier(Request $request, ObjectManager $manager)
+    public function procedureParticulier(Request $request, ObjectManager $manager, AssociationRepository $repository)
     {
-        
-        $associations = $this->repository->findAllVisible();
-         
 
+        $associations = $repository->findLatest();
+
+        /* $search = new AssociationSearch();
+        $form = $this->createForm(AssociationType::class, $search);
+        $form->handleRequest($request);
+
+        $associations = $this->repository->findAllVisibleQuery($search); */
+
+        /* $associations = $paginator->paginate(
+            $this->repository->findAllVisibleQuery(),
+            $request->query->getInt('page', 1),
+            5,
+        ); */
+              
         /* $repo = $this->getDoctrine()->getRepository(Association::class);
         dump($repo); */
 
         # Creation d'une association vide
-        /* $assoc = new Association();
+         /*  $assoc = new Association(); */
 
-        $assoc->setNom('ADAVEM Association déodatienne d\'aide aux victimes et de médiation de Saint-Dié des Vosges France Victimes 45')
-            ->setCommune('LE MANS');
+       /*  $assoc->setNom('Mon association du quartier')
+            ->setCommune('Caen')
+            ->setAdresse('Avenue de la valeuse')
+            ->setCodePostal('14200');
 
         $manager->persist($assoc);
         $manager->flush(); */
@@ -115,6 +135,7 @@ class ParticuliersController extends AbstractController
             'controller_name' => 'ParticulierController',
             'title' => "Procedure_Particulier",
             'associations' => $associations
+            /* 'form' => $form->createView() */
         ]);
     }
 
@@ -127,5 +148,29 @@ class ParticuliersController extends AbstractController
         return $this->render('particuliers/index.html.twig', [
             'controller_name' => 'ParticuliersController',
         ]);
+    }
+
+     /**
+     * @Route("/procedure_particuliers/{slug}-{id}", name="particuliers.show", requirements={"slug" : "[a-z0-9\-]*"})
+     * 
+     */
+    public function show(Association $association, string $slug)
+    {
+        # code...
+       /*  $association = $this->repository->find($id); */
+
+       if ($association->getSlug() !== $slug) {
+           # code...
+           return $this->redirectToRoute('particuliers.show', [
+                'id' => $association->getId(),
+                'slug' => $association->getSlug()
+           ], 301);
+       }
+
+        return $this->render('particuliers/show.html.twig', [
+            'association' => $association,
+            'title' => 'Association'
+        ]);
+
     }
 }
