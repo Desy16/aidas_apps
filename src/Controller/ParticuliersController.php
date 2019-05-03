@@ -11,10 +11,14 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\AssociationRepository;
 use App\Entity\Particuliers;
 use App\Entity\Association;
+use App\Entity\Contact;
+use App\Form\ContactType;
+use App\Notification\ContactNotification;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AssociationType;
 use App\Entity\AssociationSearch;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use App\Form\ParticuliersType;
 /* use App\Controller\PaginatorInterface; */
 
 class ParticuliersController extends AbstractController
@@ -84,7 +88,7 @@ class ParticuliersController extends AbstractController
             $manager->flush();
 
             # Redirection vers le formulaire procedure particulier
-            return $this->redirectToRoute('procedure_particulier');
+            return $this->redirectToRoute('association.index');
         }
 
         return $this->render('particuliers/create.html.twig', [
@@ -154,9 +158,9 @@ class ParticuliersController extends AbstractController
      * @Route("/procedure_particuliers/{slug}-{id}", name="particuliers.show", requirements={"slug" : "[a-z0-9\-]*"})
      * 
      */
-    public function show(Association $association, string $slug)
+    public function show(Association $association, string $slug, Request $request)
     {
-        # code...
+        # code...ContactNotification $notification
        /*  $association = $this->repository->find($id); */
 
        if ($association->getSlug() !== $slug) {
@@ -167,8 +171,23 @@ class ParticuliersController extends AbstractController
            ], 301);
        }
 
+       /* $contact = new Contact();
+       $form = $this->createForm(ContactType::class, $contact);
+       $form->handleRequest($request);
+
+       if($form->isSubmitted() && $form->isValid()) {
+
+            $notification->notify($contact);
+           $this->addFlash('success', 'Votre email a bien été envoyé');
+           return $this->redirectToRoute('particuliers.show', [
+                'id' => $association->getId(),
+                'slug' => $association->getSlug()
+            ]); 
+       } */
+
         return $this->render('particuliers/show.html.twig', [
             'association' => $association,
+            /* 'form' => $form->createView(), */
             'title' => 'Association'
         ]);
 

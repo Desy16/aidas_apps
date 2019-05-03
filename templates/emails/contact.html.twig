@@ -1,0 +1,26 @@
+
+<h2>Vous avez un nouveau mail via le formulaire contact</h2>
+
+<p>
+    <strong>Nom de l'association : </strong> {# {{ association.nom}} #} <a href="{{ url('association.show', {id: contact.association.id, slug: contact.association.slug})}}">{{ contact.association.nom}}</a>
+</p>
+
+<p>
+    <strong>Nom : </strong> {{ contact.nom}}
+</p>
+
+<p>
+    <strong>Prenom : </strong> {{ contact.prenom}}
+</p>
+
+<p>
+    <strong>Tel : </strong> {{ contact.tel}}
+</p>
+
+<p>
+    <strong>Email : </strong> {{ contact.email}}
+</p>
+
+<p>
+    <strong>Message : </strong> {{ contact.message | nl2br}}
+</p>

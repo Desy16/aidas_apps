@@ -8,7 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Security\Csrf\CsrfToken; 
+
+
 
 class AssociationType extends AbstractType
 {
@@ -36,7 +37,7 @@ class AssociationType extends AbstractType
         ]);
     }
 
-    public function getBlockPrefixe()
+    public function getBlockPrefix()
     {
         # code...
         return '';
